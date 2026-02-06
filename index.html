@@ -20,28 +20,22 @@ body {
   color: white;
 }
 
-/* VIGNETTE */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  box-shadow: inset 0 0 120px rgba(0,0,0,0.8);
-  pointer-events: none;
-}
-
-/* STARS */
-.star {
+/* SLIDES */
+.slide {
   position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  opacity: 0.6;
-  animation: twinkle 2s infinite alternate;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
 }
 
-@keyframes twinkle {
-  from { opacity: 0.2; }
-  to { opacity: 1; }
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* CARD */
@@ -49,18 +43,15 @@ body::after {
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(14px);
   border-radius: 22px;
-  padding: 35px;
+  padding: 40px;
   text-align: center;
   width: 90%;
   max-width: 420px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-  animation: fadeIn 1.5s ease;
-  z-index: 2;
 }
 
 h1 {
   font-size: 2em;
-  margin: 10px 0;
 }
 
 .name {
@@ -68,17 +59,8 @@ h1 {
   text-shadow: 0 0 15px #ff4d6d;
 }
 
-/* TYPEWRITER */
-#typewriter {
-  font-size: 1.1em;
-  line-height: 1.6;
-  min-height: 160px;
-  margin-top: 15px;
-}
-
-/* BUTTON */
 button {
-  margin-top: 20px;
+  margin-top: 25px;
   padding: 12px 30px;
   border: none;
   border-radius: 30px;
@@ -94,47 +76,34 @@ button:hover {
   box-shadow: 0 0 18px #ff4d6d;
 }
 
-/* HEART */
-#heart {
-  font-size: 3.8em;
-  margin-top: 20px;
-  opacity: 0;
-  animation: beat 1s infinite;
-  position: relative;
+/* TYPEWRITER */
+#typewriter {
+  font-size: 1.1em;
+  line-height: 1.6;
+  min-height: 150px;
 }
 
-.show { opacity: 1; }
+/* HEART */
+#heart {
+  font-size: 4em;
+  animation: beat 1s infinite;
+  text-shadow: 0 0 20px #ff4d6d;
+}
 
 @keyframes beat {
-  0% { transform: scale(1); text-shadow: 0 0 10px #ff4d6d; }
-  25% { transform: scale(1.3); text-shadow: 0 0 30px #ff1e56; }
+  0% { transform: scale(1); }
+  25% { transform: scale(1.3); }
   50% { transform: scale(1); }
   75% { transform: scale(1.15); }
   100% { transform: scale(1); }
 }
 
-/* SPARKLES */
-.sparkle {
-  position: absolute;
-  font-size: 14px;
-  animation: sparkle 1.5s ease-out forwards;
-}
-
-@keyframes sparkle {
-  to {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-}
-
-/* ROSE BLOOM */
+/* ROSE */
 .rose {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
+  position: relative;
   width: 120px;
   height: 120px;
-  transform: translateX(-50%);
+  margin: auto;
 }
 
 .petal {
@@ -145,7 +114,7 @@ button:hover {
   border-radius: 50% 50% 50% 0;
   transform-origin: bottom right;
   opacity: 0;
-  animation: open 2s ease forwards;
+  animation: open 2s forwards;
 }
 
 .p1 { transform: rotate(0deg) translate(30px); }
@@ -155,63 +124,39 @@ button:hover {
 .p5 { transform: rotate(240deg) translate(30px); }
 .p6 { transform: rotate(300deg) translate(30px); }
 
-.stem {
-  position: absolute;
-  top: 120px;
-  left: 50%;
-  width: 6px;
-  height: 120px;
-  background: linear-gradient(#2d6a4f, #1b4332);
-  transform: translateX(-50%);
-  border-radius: 10px;
-}
-
 @keyframes open { to { opacity: 1; } }
-
-/* FALLING ROSES */
-.falling {
-  position: absolute;
-  top: -40px;
-  font-size: 22px;
-  animation: fall linear infinite;
-  opacity: 0.8;
-}
-
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
-}
-
-/* VOLUME */
-.volume {
-  margin-top: 10px;
-  font-size: 0.8em;
-  opacity: 0.7;
-}
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Happy Rose Day, <span class="name">Ritija</span> 🌹</h1>
-
-  <div id="typewriter"></div>
-
-  <div id="heart">❤️</div>
-
-  <button onclick="startSurprise()">Tap here 💌</button>
-
-  <div class="volume">
-    Music
-    <input type="range" min="0" max="1" step="0.01" value="0.4"
-      onchange="music.volume=this.value">
+<!-- SLIDE 1 -->
+<div class="slide active">
+  <div class="card">
+    <h1>Hey <span class="name">Ritija</span> 🌹</h1>
+    <p>There’s something I wanted to show you.</p>
+    <button onclick="nextSlide()">Next 💌</button>
   </div>
 </div>
 
-<div class="rose">
-  <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div>
-  <div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div>
-  <div class="stem"></div>
+<!-- SLIDE 2 -->
+<div class="slide">
+  <div class="card">
+    <div id="typewriter"></div>
+    <button onclick="nextSlide()">Next 💖</button>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide">
+  <div class="card">
+    <div class="rose">
+      <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div>
+      <div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div>
+    </div>
+    <div id="heart">❤️</div>
+    <p>For you — today and always.</p>
+  </div>
 </div>
 
 <audio id="music" loop>
@@ -219,30 +164,26 @@ button:hover {
 </audio>
 
 <script>
+const slides = document.querySelectorAll(".slide");
+let current = 0;
+
 const text =
 `Ritija 🌹
 
 This rose is not just a flower.
 It’s a quiet reminder that
-some people make the world
-feel softer without trying.
+some people make ordinary days
+feel special without trying.`;
 
-If hearts could speak,
-this one would smile.
+let i = 0;
 
-For you — today and always.`;
+function nextSlide() {
+  slides[current].classList.remove("active");
+  current++;
+  slides[current].classList.add("active");
 
-let i = 0, started = false;
-const music = document.getElementById("music");
-
-function startSurprise() {
-  if (started) return;
-  started = true;
-  music.volume = 0.4;
-  music.play();
-  type();
-  roses();
-  stars();
+  if (current === 1) type();
+  if (current === 2) document.getElementById("music").play();
 }
 
 function type() {
@@ -251,43 +192,7 @@ function type() {
       text[i] === "\n" ? "<br>" : text[i];
     i++;
     setTimeout(type, 45);
-  } else {
-    document.getElementById("heart").classList.add("show");
-    setInterval(sparkles, 400);
   }
-}
-
-function roses() {
-  setInterval(() => {
-    let r = document.createElement("div");
-    r.className = "falling";
-    r.innerHTML = "🌹";
-    r.style.left = Math.random()*100 + "vw";
-    r.style.animationDuration = (Math.random()*4+4)+"s";
-    document.body.appendChild(r);
-    setTimeout(()=>r.remove(),8000);
-  }, 500);
-}
-
-function stars() {
-  for (let s=0; s<60; s++) {
-    let star = document.createElement("div");
-    star.className = "star";
-    star.style.left = Math.random()*100+"vw";
-    star.style.top = Math.random()*100+"vh";
-    star.style.animationDuration = (Math.random()*3+2)+"s";
-    document.body.appendChild(star);
-  }
-}
-
-function sparkles() {
-  let sp = document.createElement("div");
-  sp.className = "sparkle";
-  sp.innerHTML = "✨";
-  sp.style.left = (heart.offsetLeft + Math.random()*40 - 20)+"px";
-  sp.style.top = (heart.offsetTop)+"px";
-  document.body.appendChild(sp);
-  setTimeout(()=>sp.remove(),1500);
 }
 </script>
 
