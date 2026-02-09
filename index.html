@@ -2,14 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Teddy Day 🧸</title>
+<title>Teddy Day Ultimate 🧸</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
 *{box-sizing:border-box;}
-
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
@@ -28,18 +27,16 @@ body{
   align-items:center;
   opacity:0;
   pointer-events:none;
-  transition:1s;
+  transition:.8s;
   padding:20px;
 }
-.slide.active{
-  opacity:1;
-  pointer-events:auto;
-}
+.slide.active{opacity:1;pointer-events:auto;}
 
-/* Card */
 .card{
   width:100%;
   max-width:650px;
+  max-height:90vh;
+  overflow-y:auto;
   background:white;
   border-radius:35px;
   padding:40px 30px;
@@ -47,32 +44,31 @@ body{
   box-shadow:0 25px 80px rgba(0,0,0,.15);
 }
 
-h1{font-size:2.2em;}
+h1{font-size:2em;}
 .big{font-size:1.1em;line-height:1.8;margin-top:20px;}
 .name{color:#d86b9f;font-weight:700;}
 
-/* Button */
 button{
-  margin-top:25px;
-  padding:12px 35px;
+  margin-top:20px;
+  padding:10px 30px;
   border:none;
   border-radius:50px;
-  font-size:1em;
   background:#d86b9f;
   color:white;
   cursor:pointer;
   transition:.3s;
 }
-button:hover{transform:scale(1.08);}
+button:hover{transform:scale(1.1);}
 
-/* Teddy */
+/* 3D Teddy */
 .teddy{
   font-size:6em;
   animation:bounce 2s infinite;
+  transform-style:preserve-3d;
 }
 @keyframes bounce{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-15px);}
+  0%,100%{transform:translateY(0) rotateY(0);}
+  50%{transform:translateY(-15px) rotateY(15deg);}
 }
 
 /* Walking teddy */
@@ -80,61 +76,41 @@ button:hover{transform:scale(1.08);}
   position:fixed;
   bottom:10px;
   font-size:3em;
-  animation:walk 15s linear infinite;
+  animation:walk 20s linear infinite;
 }
 @keyframes walk{
   from{left:-10%;}
   to{left:110%;}
 }
 
-/* Falling hearts */
+/* Heart rain */
 .fall{
   position:fixed;
   top:-40px;
-  font-size:22px;
+  font-size:20px;
   animation:fall linear infinite;
-  opacity:.8;
-  pointer-events:none;
 }
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg);}
 }
 
-/* Hug effect */
-.hug{
-  animation:hugPulse 1s infinite;
-}
-@keyframes hugPulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.2);}
-  100%{transform:scale(1);}
+/* Confetti */
+.confetti{
+  position:fixed;
+  width:8px;height:8px;
+  background:red;
+  animation:fall linear infinite;
 }
 
-/* Heart */
-#heart{
+/* Big heart */
+#bigHeart{
   font-size:5em;
   animation:beat 1s infinite;
 }
 @keyframes beat{
   0%{transform:scale(1);}
-  25%{transform:scale(1.25);}
-  50%{transform:scale(1);}
-  75%{transform:scale(1.15);}
+  50%{transform:scale(1.3);}
   100%{transform:scale(1);}
-}
-
-/* Sparkles */
-.spark{
-  position:fixed;
-  width:3px;
-  height:3px;
-  background:#fff;
-  border-radius:50%;
-  animation:twinkle 2s infinite alternate;
-}
-@keyframes twinkle{
-  from{opacity:0.2;}
-  to{opacity:1;}
 }
 </style>
 </head>
@@ -145,49 +121,46 @@ button:hover{transform:scale(1.08);}
 <div class="slide active">
   <div class="card">
     <h1>Happy Teddy Day 🧸</h1>
-    <p class="big">
-      Ritija 💖<br><br>
-      Today I’m sending you the softest,
-      warmest hug possible.
-    </p>
-    <button onclick="nextSlide()">Next 🤗</button>
+    <p class="big">Ritija 💖<br><br>
+    Today is about hugs... and I want to be yours.</p>
+    <button onclick="nextSlide()">Next 🤍</button>
   </div>
 </div>
 
 <!-- Slide 2 -->
 <div class="slide">
   <div class="card">
-    <div id="mainTeddy" class="teddy">🧸</div>
-    <p class="big">
-      Press & Hold the teddy to hug 🤍
-    </p>
+    <div class="teddy">🧸</div>
+    <p class="big">Swipe left or tap next 💕</p>
+    <button onclick="nextSlide()">Next</button>
   </div>
 </div>
 
-<!-- Slide 3 -->
+<!-- Slide 3 Typewriter -->
 <div class="slide">
   <div class="card">
-    <p class="big">
-      Ritija 🤍<br><br>
-      You are my comfort.<br>
-      My calm place.<br>
-      My favorite hug.<br><br>
-      If I could, I’d send you a hug
-      that lasts forever.
-    </p>
-    <button onclick="nextSlide()">Final Hug 💖</button>
+    <p id="letter" class="big"></p>
+    <button onclick="nextSlide()">Next 💌</button>
   </div>
 </div>
 
-<!-- Slide 4 Final -->
+<!-- Slide 4 Hug Question -->
 <div class="slide">
   <div class="card">
-    <div id="heart">❤️</div>
+    <h1>Add Me As Your Hug? 🤗</h1>
+    <button id="yesBtn" onclick="nextSlide()">Yes 💖</button>
+    <button id="noBtn">No 😅</button>
+  </div>
+</div>
+
+<!-- Slide 5 Final -->
+<div class="slide">
+  <div class="card">
+    <div id="bigHeart">❤️</div>
     <h1 class="name">Ritija ❤️ Prinsu</h1>
     <p class="big">
-      You are my softest hug.<br>
-      My sweetest comfort.<br><br>
-      Happy Teddy Day 🤗💖
+      I promise to always be your hug.<br>
+      Forever 🤍
     </p>
   </div>
 </div>
@@ -202,55 +175,76 @@ button:hover{transform:scale(1.08);}
 const slides=document.querySelectorAll(".slide");
 let current=0;
 const music=document.getElementById("music");
-const teddy=document.getElementById("mainTeddy");
-
 function nextSlide(){
   slides[current].classList.remove("active");
   current++;
   slides[current].classList.add("active");
-  if(current===1){music.play();}
-  heartRain();
+  music.play();
 }
 
-/* Hug feature */
-if(teddy){
-  teddy.addEventListener("mousedown",()=>{
-    teddy.classList.add("hug");
-  });
-  teddy.addEventListener("mouseup",()=>{
-    teddy.classList.remove("hug");
-    nextSlide();
-  });
-  teddy.addEventListener("touchstart",()=>{
-    teddy.classList.add("hug");
-  });
-  teddy.addEventListener("touchend",()=>{
-    teddy.classList.remove("hug");
-    nextSlide();
-  });
+/* Typewriter */
+const msg=`Ritija 💖
+
+You are my comfort.
+My warmth.
+My forever hug.
+
+On this Teddy Day,
+I don't just want to give you a teddy...
+I want to give you me.`;
+let i=0;
+function type(){
+  const el=document.getElementById("letter");
+  if(i<msg.length){
+    el.textContent+=msg.charAt(i);
+    i++;
+    setTimeout(type,30);
+  }
+}
+setTimeout(type,1200);
+
+/* No button runs */
+const noBtn=document.getElementById("noBtn");
+if(noBtn){
+noBtn.addEventListener("mouseover",()=>{
+  noBtn.style.position="absolute";
+  noBtn.style.left=Math.random()*70+"%";
+  noBtn.style.top=Math.random()*70+"%";
+});
 }
 
-function heartRain(){
-  setInterval(()=>{
-    const h=document.createElement("div");
-    h.className="fall";
-    h.innerHTML="💖";
-    h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=(Math.random()*4+4)+"s";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),8000);
-  },500);
-}
+/* Heart rain */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="fall";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*4+4)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},400);
 
-/* Sparkles */
-for(let i=0;i<80;i++){
-  const s=document.createElement("div");
-  s.className="spark";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=Math.random()*100+"vh";
-  s.style.animationDuration=(Math.random()*3+1)+"s";
-  document.body.appendChild(s);
+/* Confetti on final */
+function confetti(){
+  for(let i=0;i<150;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    c.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
 }
+slides[4].addEventListener("transitionend",confetti);
+
+/* Swipe */
+let startX=0;
+document.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+document.addEventListener("touchend",e=>{
+  let diff=e.changedTouches[0].clientX-startX;
+  if(diff<-50) nextSlide();
+});
 </script>
 
 </body>
